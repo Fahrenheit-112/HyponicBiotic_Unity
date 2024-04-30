@@ -10,6 +10,8 @@ using UnityEngine.AI;
 
 public class Movement_Pursuit : MonoBehaviour
 {
+    private GameObject target;
+    private Vector3 targetPos;
     private bool playerSpotted = false;
     private bool isPursuing = false;
     private NavMeshAgent navMeshAgent;
@@ -18,14 +20,25 @@ public class Movement_Pursuit : MonoBehaviour
     {
         navMeshAgent = GetComponent<NavMeshAgent>();    
     }
+ 
+    private void Update() 
+    {
+        targetPos = target.transform.position;
+        if (!navMeshAgent.pathPending) 
+        {
+            navMeshAgent.SetDestination(targetPos);
+        }
+    }
 
     public void PlayerFound() { playerSpotted = true; isPursuing = true; }
     public void PlayerLost() { playerSpotted = false; isPursuing = false; }
     public bool IsPursuing() { return isPursuing; }
     
-    public void SetTarget(GameObject target)
+    public void SetTarget(GameObject newTarget)
     {
-        navMeshAgent.SetDestination(target.transform.position);
+        target = newTarget;
+        Debug.Log(target);
+        // navMeshAgent.SetDestination(target.transform.position);
     }
 
     public void StartPursuit() { this.enabled = true; }

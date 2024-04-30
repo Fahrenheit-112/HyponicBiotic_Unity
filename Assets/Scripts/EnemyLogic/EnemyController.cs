@@ -24,15 +24,20 @@ public class EnemyController : MonoBehaviour
     private Vector3 distanceToPlayer;
     private Movement_Patrol patrol;
     private Movement_Pursuit pursuit;
-/*    private bool playerInSight = false;
+    private bool playerInSight = false;
     private int playerNotFoundCount = 0;
     private bool pursuingPlayer = false;
-    private bool huntingPlayer = false;*/
+    private bool huntingPlayer = false;
+    private Vector3 headRaycast = new Vector3(0,2,0);
+    private Vector3 bodyRaycast = new Vector3(0,1,0);
+    private Vector3 raycastOriginOffset = new Vector3(0,1.5f,0);
+    private Vector3 raycastOrigin;
 
     private void Start()
     {
-        viewDistance *= viewDistance;
-        player = GameObject.Find("Player");
+        viewDistance *= viewDistance;   // Square the inspector-set view distance to avoid sqrt function later
+        player = GameObject.Find("Player"); // Fragile implementation
+        Debug.Log("Player found: " + player);
         patrol = GetComponent<Movement_Patrol>();
         pursuit = GetComponent<Movement_Pursuit>();
     }
@@ -48,12 +53,27 @@ public class EnemyController : MonoBehaviour
             if (Vector3.Angle(transform.forward, distanceToPlayer) < (coneAngle / 2.0f))
             {
                 RaycastHit hit;
+                raycastOrigin = transform.position + raycastOriginOffset;
                 // First of 3 raycasts, checks if main body of player visible
                 // These raycasts need to originate from the enemy's head area
                 // They need to target the player's head, left & right pectoral region, and center of mass
-                if (Physics.Raycast(transform.position, player.transform.position, out hit))
+                if (Physics.Raycast(raycastOrigin, player.transform.position + headRaycast - raycastOrigin, out hit))
                 {
+                    if (!pursuingPlayer) 
+                    {
+                        StartPursuit(player);
+                    } 
+                    Debug.DrawRay(raycastOrigin, player.transform.position + headRaycast - raycastOrigin, Color.green, 0.1f);
+                    // Debug.Log("Distance to player: " + distanceToPlayer);
                     // Player spotted, start pursuit
+                } else if (Physics.Raycast(raycastOrigin, player.transform.position + bodyRaycast - raycastOrigin, out hit))
+                {
+                    Debug.DrawRay(raycastOrigin, player.transform.position + bodyRaycast - raycastOrigin, Color.green, 0.1f);
+                    // Debug.Log("Distance to player: " + distanceToPlayer);
+                } else if (Physics.Raycast(raycastOrigin, player.transform.position - raycastOrigin, out hit))
+                {
+                    Debug.DrawRay(raycastOrigin, player.transform.position - raycastOrigin, Color.green, 0.1f);
+                    // Debug.Log("Distance to player: " + distanceToPlayer);
                 }
             }
         }
@@ -65,7 +85,7 @@ public class EnemyController : MonoBehaviour
     /// for several seconds (default 5) with periodic checks to determine
     /// if the player is visible to the enemy or not. 
     /// </summary>
-/*    private void HuntForPlayer()
+    private void HuntForPlayer()
     {
         if (!playerInSight)
         {
@@ -107,5 +127,5 @@ public class EnemyController : MonoBehaviour
         pursuingPlayer = false;
         pursuit.EndPursuit(); 
         patrol.ResumePatrol(); 
-    }*/
+    }
 }
