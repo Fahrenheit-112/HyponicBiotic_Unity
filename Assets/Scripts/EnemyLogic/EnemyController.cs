@@ -1,3 +1,4 @@
+using System.Buffers.Text;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -5,10 +6,12 @@ using UnityEngine;
 
 /* Author:  Fouche', Els
  * Updated: 04/28/2024
- * Notes:   This script handles detection logic and
- *          determines whether the enemy is in patrol mode
- *          or pursuit mode based on having seen the player.
- *          It initiates attacks when close to the player.
+ * Notes:   This script handles enemy sight based on
+ *          the distance to the player, a specified view cone,
+ *          and raycasts that are only used when the previous 
+ *          two conditions are met to determine if the player
+ *          is visible. If the player is spotted, the enemy
+ *          switches from patrol to pursuit. 
  */
 
 public class EnemyController : MonoBehaviour
@@ -30,45 +33,22 @@ public class EnemyController : MonoBehaviour
     private void Start()
     {
         viewDistance *= viewDistance;   // Square the inspector-set view distance to avoid sqrt function later
-        player = GameObject.Find("Player"); // Fragile implementation
+        player = GameObject.Find("Player"); // Fragile implementation, fix later
         Debug.Log("Player found: " + player);
         patrol = GetComponent<Movement_Patrol>();
         pursuit = GetComponent<Movement_Pursuit>();
     }
 
     /// <summary>
-    /// Keep track of the distance between player and enemy. sqrMagnitude leaves off sqrt function
-    /// (it's slow) so our viewDistance is squared at the start to create a valid comparison. 
-    /// 
-    /// Check to see if the player is within a view cone based on coneAngle
-    /// 
-    /// First of 3 raycasts, checks if main body of player visible
-    /// These raycasts need to originate from the enemy's head area
-    /// They need to target the player's head, left & right pectoral region, and center of mass
+    /// Calls the CheckForPlayer() function to determine if
+    /// the player is in sight. Starts the pursuit protocol if
+    /// they are. 
     /// </summary>
     private void Update()
     {
-        distanceToPlayer = (player.transform.position - transform.position);
-        if (distanceToPlayer.sqrMagnitude < viewDistance && !pursuingPlayer)
+        if (!pursuingPlayer && CheckForPlayer())
         {
-            if (Vector3.Angle(transform.forward, distanceToPlayer) < (coneAngle / 2.0f))
-            {
-                RaycastHit hit;
-                raycastOrigin = transform.position + raycastOriginOffset;
-                if (Physics.Raycast(raycastOrigin, player.transform.position + headRaycast - raycastOrigin, out hit))
-                {
-                    StartPursuit(player);
-                    Debug.DrawRay(raycastOrigin, player.transform.position + headRaycast - raycastOrigin, Color.green, 0.1f);
-                } else if (Physics.Raycast(raycastOrigin, player.transform.position + bodyRaycast - raycastOrigin, out hit))
-                {
-                    StartPursuit(player);
-                    Debug.DrawRay(raycastOrigin, player.transform.position + bodyRaycast - raycastOrigin, Color.green, 0.1f);
-                } else if (Physics.Raycast(raycastOrigin, player.transform.position - raycastOrigin, out hit))
-                {
-                    StartPursuit(player);
-                    Debug.DrawRay(raycastOrigin, player.transform.position - raycastOrigin, Color.green, 0.1f);
-                }
-            }
+            StartPursuit(player);
         }
     }
 
@@ -85,10 +65,20 @@ public class EnemyController : MonoBehaviour
         patrol.ResumePatrol(); 
     }
 
+    /// <summary>
+    /// Determines if the player is in sight in stages for efficiency.
+    /// First, determines the distance to the player and only proceeds if
+    /// the player is close enough. Second, it checks if the player is 
+    /// within a view cone specified by coneAngle. Finally, three ray casts
+    /// are used to determine if the head, body, or feet of the player are 
+    /// visible. Returns true if the player is spotted by one of the ray 
+    /// casts, returns false otherwise. 
+    /// </summary>
+    /// <returns></returns>
     public bool CheckForPlayer()
     {
         distanceToPlayer = (player.transform.position - transform.position);
-        if (distanceToPlayer.sqrMagnitude < viewDistance && !pursuingPlayer)
+        if (distanceToPlayer.sqrMagnitude < viewDistance)
         {
             if (Vector3.Angle(transform.forward, distanceToPlayer) < (coneAngle / 2.0f))
             {

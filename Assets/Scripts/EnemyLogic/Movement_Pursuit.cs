@@ -19,6 +19,9 @@ public class Movement_Pursuit : MonoBehaviour
     private EnemyController enemyController;
     private int numChecks = 0;
 
+    /// <summary>
+    /// Initialize components and disable this script.
+    /// </summary>
     private void Start()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
@@ -26,6 +29,11 @@ public class Movement_Pursuit : MonoBehaviour
         this.enabled = false;
     }
  
+    /// <summary>
+    /// If the enemy has a valid target, update the destination
+    /// every frame so long as we've finished computing the previous
+    /// destination. 
+    /// </summary>
     private void Update() 
     {
         if (target && !navMeshAgent.pathPending)
@@ -34,7 +42,12 @@ public class Movement_Pursuit : MonoBehaviour
         }
     }
     
-
+    /// <summary>
+    /// Called from EnemyController. Enables the script, sets the
+    /// target, sets the navMeshAgent's destination to the target,
+    /// and begins the HuntForPlayer() function set. 
+    /// </summary>
+    /// <param name="newTarget"></param>
     public void StartPursuit(GameObject newTarget) 
     { 
         this.enabled = true;
@@ -42,6 +55,13 @@ public class Movement_Pursuit : MonoBehaviour
         navMeshAgent.SetDestination(target.transform.position);
         HuntForPlayer();
     }
+
+    /// <summary>
+    /// Called from EnemyController when we've finished pursuing
+    /// the player. We call this from EnemyController so that 
+    /// EnemyController can reinitialize the enemy patrol 
+    /// protocol simultaneously. 
+    /// </summary>
     public void EndPursuit() 
     { 
         target = null; 
@@ -55,7 +75,6 @@ public class Movement_Pursuit : MonoBehaviour
     /// </summary>
     private void HuntForPlayer()
     {
-        Debug.Log("HuntForPlayer() entered.");
         if (enemyController.CheckForPlayer())
         {
             numChecks = 0;
@@ -63,7 +82,6 @@ public class Movement_Pursuit : MonoBehaviour
         } else
         {
             numChecks++;
-            Debug.Log("numChecks = " + numChecks);
             if (numChecks >= checkForPlayer)
             {
                 numChecks = 0;
@@ -75,6 +93,11 @@ public class Movement_Pursuit : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// This function simply waits for timeBetweenChecks
+    /// seconds before calling looping back into HuntForPlayer().
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator PursuitDecay()
     {
         yield return new WaitForSeconds(timeBetweenChecks);
