@@ -469,8 +469,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   viewDistance: 20
   coneAngle: 45
-  checkForPlayer: 5
-  timeBetweenChecks: 1
 --- !u!1001 &1363640342
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -765,7 +763,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 56287079323213896, guid: 454ff44044fb6a04382a680a625151e8, type: 3}
       propertyPath: m_StoppingDistance
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1409124589804412150, guid: 454ff44044fb6a04382a680a625151e8, type: 3}
       propertyPath: patrolPoints.Array.data[0]
@@ -849,7 +847,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3678004215877279136, guid: a99e5f0c194c2004eb9ae4d47b154243, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 6.97
       objectReference: {fileID: 0}
     - target: {fileID: 3678004215877279136, guid: a99e5f0c194c2004eb9ae4d47b154243, type: 3}
       propertyPath: m_LocalPosition.y
@@ -857,7 +855,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3678004215877279136, guid: a99e5f0c194c2004eb9ae4d47b154243, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -8.12
       objectReference: {fileID: 0}
     - target: {fileID: 3678004215877279136, guid: a99e5f0c194c2004eb9ae4d47b154243, type: 3}
       propertyPath: m_LocalRotation.w

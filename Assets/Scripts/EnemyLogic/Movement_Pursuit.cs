@@ -10,37 +10,74 @@ using UnityEngine.AI;
 
 public class Movement_Pursuit : MonoBehaviour
 {
+    [Header("Pursue Player")]
+    public int checkForPlayer = 5;
+    public float timeBetweenChecks = 1.0f;
+
     private GameObject target;
-    private Vector3 targetPos;
-    private bool playerSpotted = false;
-    private bool isPursuing = false;
     private NavMeshAgent navMeshAgent;
+    private EnemyController enemyController;
+    private int numChecks = 0;
 
     private void Start()
     {
-        navMeshAgent = GetComponent<NavMeshAgent>();    
+        navMeshAgent = GetComponent<NavMeshAgent>();
+        enemyController = GetComponent<EnemyController>();
+        this.enabled = false;
     }
  
     private void Update() 
     {
-        targetPos = target.transform.position;
-        if (!navMeshAgent.pathPending) 
+        if (target && !navMeshAgent.pathPending)
         {
-            navMeshAgent.SetDestination(targetPos);
+            navMeshAgent.SetDestination(target.transform.position);
+        }
+    }
+    
+
+    public void StartPursuit(GameObject newTarget) 
+    { 
+        this.enabled = true;
+        target = newTarget;
+        navMeshAgent.SetDestination(target.transform.position);
+        HuntForPlayer();
+    }
+    public void EndPursuit() 
+    { 
+        target = null; 
+        this.enabled = false; 
+    }
+
+    /// <summary>
+    /// This script is designed to allow the enemy to pursue the player
+    /// for several seconds (default 5) with periodic checks to determine
+    /// if the player is visible to the enemy or not. 
+    /// </summary>
+    private void HuntForPlayer()
+    {
+        Debug.Log("HuntForPlayer() entered.");
+        if (enemyController.CheckForPlayer())
+        {
+            numChecks = 0;
+            StartCoroutine("PursuitDecay");
+        } else
+        {
+            numChecks++;
+            Debug.Log("numChecks = " + numChecks);
+            if (numChecks >= checkForPlayer)
+            {
+                numChecks = 0;
+                enemyController.EndPursuit();
+            } else
+            {
+                StartCoroutine("PursuitDecay");
+            }
         }
     }
 
-    public void PlayerFound() { playerSpotted = true; isPursuing = true; }
-    public void PlayerLost() { playerSpotted = false; isPursuing = false; }
-    public bool IsPursuing() { return isPursuing; }
-    
-    public void SetTarget(GameObject newTarget)
+    private IEnumerator PursuitDecay()
     {
-        target = newTarget;
-        Debug.Log(target);
-        // navMeshAgent.SetDestination(target.transform.position);
+        yield return new WaitForSeconds(timeBetweenChecks);
+        HuntForPlayer();
     }
-
-    public void StartPursuit() { this.enabled = true; }
-    public void EndPursuit() { this.enabled = false; }
 }
