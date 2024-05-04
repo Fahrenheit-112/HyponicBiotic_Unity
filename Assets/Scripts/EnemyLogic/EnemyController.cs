@@ -25,8 +25,8 @@ public class EnemyController : MonoBehaviour
     private Movement_Patrol patrol;
     private Movement_Pursuit pursuit;
     private bool pursuingPlayer = false;
-    private Vector3 headRaycast = new Vector3(0,2,0);
-    private Vector3 bodyRaycast = new Vector3(0,1,0);
+    private Vector3 headRaycast = new Vector3(0,0.5f,0);
+    private Vector3 footRaycast = new Vector3(0,-0.5f,0);
     private Vector3 raycastOriginOffset = new Vector3(0,1.5f,0);
     private Vector3 raycastOrigin;
 
@@ -78,25 +78,28 @@ public class EnemyController : MonoBehaviour
     public bool CheckForPlayer()
     {
         distanceToPlayer = (player.transform.position - transform.position);
-        if (distanceToPlayer.sqrMagnitude < viewDistance)
+        if (distanceToPlayer.sqrMagnitude < 5.0f)
+        {
+            return true;
+        } else if (distanceToPlayer.sqrMagnitude < viewDistance)
         {
             if (Vector3.Angle(transform.forward, distanceToPlayer) < (coneAngle / 2.0f))
             {
                 RaycastHit hit;
                 raycastOrigin = transform.position + raycastOriginOffset;
-                if (Physics.Raycast(raycastOrigin, player.transform.position + headRaycast - raycastOrigin, out hit))
+                if (Physics.Raycast(raycastOrigin, player.transform.position - raycastOrigin, out hit))
                 {
-                    Debug.DrawRay(raycastOrigin, player.transform.position + headRaycast - raycastOrigin, Color.green, 0.1f);
+                    Debug.DrawRay(raycastOrigin, player.transform.position - raycastOrigin, Color.green, 0.5f);
                     return true;
                 }
-                else if (Physics.Raycast(raycastOrigin, player.transform.position + bodyRaycast - raycastOrigin, out hit))
+                else if (Physics.Raycast(raycastOrigin, player.transform.position + headRaycast - raycastOrigin, out hit))
                 {
-                    Debug.DrawRay(raycastOrigin, player.transform.position + headRaycast - raycastOrigin, Color.green, 0.1f);
+                    Debug.DrawRay(raycastOrigin, player.transform.position + headRaycast - raycastOrigin, Color.green, 0.5f);
                     return true;
                 }
-                else if (Physics.Raycast(raycastOrigin, player.transform.position - raycastOrigin, out hit))
+                else if (Physics.Raycast(raycastOrigin, player.transform.position + footRaycast - raycastOrigin, out hit))
                 {
-                    Debug.DrawRay(raycastOrigin, player.transform.position + headRaycast - raycastOrigin, Color.green, 0.1f);
+                    Debug.DrawRay(raycastOrigin, player.transform.position + footRaycast - raycastOrigin, Color.green, 0.5f);
                     return true;
                 }
                 else { return false; }

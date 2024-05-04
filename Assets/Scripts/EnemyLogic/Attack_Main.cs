@@ -22,6 +22,7 @@ public class Attack_Main : MonoBehaviour
     public int dmgOfAtk = 1;
     public float rangeOfAtk = 2.0f;
     public float atkDelay = 1.5f;
+    // public float knockBack = 5.0f;
 
     private GameObject target;
     private TagManager targetTags;
@@ -54,7 +55,10 @@ public class Attack_Main : MonoBehaviour
             }
         }
 
-        rangeOfAtk *= rangeOfAtk; 
+        target = GameObject.Find("Player");
+
+        rangeOfAtk *= rangeOfAtk;
+        rangeOfAtk += GetComponent<NavMeshAgent>().stoppingDistance;
     }
 
     /// <summary>
@@ -86,12 +90,10 @@ public class Attack_Main : MonoBehaviour
     /// </summary>
     public void Attack()
     {
-        if ((target = enemyController.CurrTarget()) &&
-            (targetTags = target.GetComponent<TagManager>()) &&
+        if ((targetTags = target.GetComponent<TagManager>()) &&
             (targetTags.baseType == TagManager.BaseType.Player))
         {
-            Debug.Log("Attacking.");
-            // target.GetComponent<PlayerHealth>().;
+            target.GetComponent<PlayerHealth>().DamagePlayer(dmgOfAtk);
         }
     }
 }

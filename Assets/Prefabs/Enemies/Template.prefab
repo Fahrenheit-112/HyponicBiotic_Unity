@@ -1,0 +1,145 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &1602715775867094409
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 56287079323213896, guid: 454ff44044fb6a04382a680a625151e8, type: 3}
+      propertyPath: m_AngularSpeed
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 56287079323213896, guid: 454ff44044fb6a04382a680a625151e8, type: 3}
+      propertyPath: m_StoppingDistance
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2492741496665089770, guid: 454ff44044fb6a04382a680a625151e8, type: 3}
+      propertyPath: m_Size.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2492741496665089770, guid: 454ff44044fb6a04382a680a625151e8, type: 3}
+      propertyPath: m_Size.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2492741496665089770, guid: 454ff44044fb6a04382a680a625151e8, type: 3}
+      propertyPath: m_Size.z
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2492741496665089770, guid: 454ff44044fb6a04382a680a625151e8, type: 3}
+      propertyPath: m_Center.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2492741496665089770, guid: 454ff44044fb6a04382a680a625151e8, type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3174313719564855367, guid: 454ff44044fb6a04382a680a625151e8, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3174313719564855367, guid: 454ff44044fb6a04382a680a625151e8, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3174313719564855367, guid: 454ff44044fb6a04382a680a625151e8, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3174313719564855367, guid: 454ff44044fb6a04382a680a625151e8, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3174313719564855367, guid: 454ff44044fb6a04382a680a625151e8, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3174313719564855367, guid: 454ff44044fb6a04382a680a625151e8, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3174313719564855367, guid: 454ff44044fb6a04382a680a625151e8, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3174313719564855367, guid: 454ff44044fb6a04382a680a625151e8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3174313719564855367, guid: 454ff44044fb6a04382a680a625151e8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3174313719564855367, guid: 454ff44044fb6a04382a680a625151e8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4105111028939748596, guid: 454ff44044fb6a04382a680a625151e8, type: 3}
+      propertyPath: m_Name
+      value: Mesh2_Optional
+      objectReference: {fileID: 0}
+    - target: {fileID: 4291561560990652193, guid: 454ff44044fb6a04382a680a625151e8, type: 3}
+      propertyPath: m_Name
+      value: Mesh1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6255890989369350349, guid: 454ff44044fb6a04382a680a625151e8, type: 3}
+      propertyPath: m_Name
+      value: Template
+      objectReference: {fileID: 0}
+    - target: {fileID: 8616680253637788354, guid: 454ff44044fb6a04382a680a625151e8, type: 3}
+      propertyPath: m_Constraints
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 8616680253637788354, guid: 454ff44044fb6a04382a680a625151e8, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects:
+    - {fileID: 7046337697540898809, guid: 454ff44044fb6a04382a680a625151e8, type: 3}
+    - {fileID: 1421941911685714624, guid: 454ff44044fb6a04382a680a625151e8, type: 3}
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6255890989369350349, guid: 454ff44044fb6a04382a680a625151e8, type: 3}
+      insertIndex: 2
+      addedObject: {fileID: 200485087344423117}
+    - targetCorrespondingSourceObject: {fileID: 6255890989369350349, guid: 454ff44044fb6a04382a680a625151e8, type: 3}
+      insertIndex: 5
+      addedObject: {fileID: 5950588113748572317}
+  m_SourcePrefab: {fileID: 100100000, guid: 454ff44044fb6a04382a680a625151e8, type: 3}
+--- !u!1 &4678288059619630404 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6255890989369350349, guid: 454ff44044fb6a04382a680a625151e8, type: 3}
+  m_PrefabInstance: {fileID: 1602715775867094409}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &200485087344423117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4678288059619630404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e38a49c152ae2d54e8f720242f97ee18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  viewDistance: 20
+  coneAngle: 45
+--- !u!114 &5950588113748572317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4678288059619630404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea3295541060ea445a90f5eccc17023f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dmgOfAtk: 1
+  rangeOfAtk: 3
+  atkDelay: 1.5
