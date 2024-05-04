@@ -105,4 +105,8 @@ public class EnemyController : MonoBehaviour
         }
         else { return false; }
     }
+
+    public bool IsPursuing() { return pursuingPlayer; }
+    public float DistanceToPlayer() { return (player.transform.position - transform.position).sqrMagnitude; }
+    public GameObject CurrTarget() { return player; }
 }
