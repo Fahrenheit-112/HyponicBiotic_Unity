@@ -9,12 +9,17 @@ using UnityEngine.AI;
  */
 public class Movement_Patrol : MonoBehaviour
 {
-    public Transform[] patrolPoints;
+    public GameObject patrolContainer;
+    private List<Transform> patrolPoints = new List<Transform>();
     public int patrolIndex = 0;
     private NavMeshAgent navMeshAgent;
 
     private void Start()
     {
+        foreach (Transform child in patrolContainer.transform)
+        {
+            patrolPoints.Add(child);
+        }
         navMeshAgent = GetComponent<NavMeshAgent>();
         NextPatrolPos();
     }
@@ -40,7 +45,7 @@ public class Movement_Patrol : MonoBehaviour
     {
         navMeshAgent.SetDestination(patrolPoints[patrolIndex].position);
 
-        patrolIndex = (patrolIndex + 1) % patrolPoints.Length;
+        patrolIndex = (patrolIndex + 1) % patrolPoints.Count;
     }
 
     /// <summary>
