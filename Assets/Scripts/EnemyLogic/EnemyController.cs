@@ -90,17 +90,34 @@ public class EnemyController : MonoBehaviour
                 if (Physics.Raycast(raycastOrigin, player.transform.position - raycastOrigin, out hit))
                 {
                     Debug.DrawRay(raycastOrigin, player.transform.position - raycastOrigin, Color.green, 0.5f);
-                    return true;
+                    if (hit.transform.gameObject.GetComponent<TagManager>() &&
+                        hit.transform.gameObject.GetComponent<TagManager>().baseType == TagManager.BaseType.Player)
+                    {
+                        Debug.Log("Player detected with raycast from head to body.");
+                        return true;   
+                    } else { return false; }
                 }
                 else if (Physics.Raycast(raycastOrigin, player.transform.position + headRaycast - raycastOrigin, out hit))
                 {
                     Debug.DrawRay(raycastOrigin, player.transform.position + headRaycast - raycastOrigin, Color.green, 0.5f);
-                    return true;
+                    if (hit.transform.gameObject.GetComponent<TagManager>() &&
+                        hit.transform.gameObject.GetComponent<TagManager>().baseType == TagManager.BaseType.Player)
+                    {
+                        Debug.Log("Player detected with raycast from head to head.");
+                        return true;
+                    }
+                    else { return false; }
                 }
                 else if (Physics.Raycast(raycastOrigin, player.transform.position + footRaycast - raycastOrigin, out hit))
                 {
                     Debug.DrawRay(raycastOrigin, player.transform.position + footRaycast - raycastOrigin, Color.green, 0.5f);
-                    return true;
+                    if (hit.transform.gameObject.GetComponent<TagManager>() &&
+                        hit.transform.gameObject.GetComponent<TagManager>().baseType == TagManager.BaseType.Player)
+                    {
+                        Debug.Log("Player detected with raycast from head to foot.");
+                        return true;
+                    }
+                    else { return false; }
                 }
                 else { return false; }
             }
