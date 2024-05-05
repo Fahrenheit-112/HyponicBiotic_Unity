@@ -25,6 +25,26 @@ public class TagManager : MonoBehaviour
         Strong
     }
 
+    public enum DoorType
+    {
+        None, 
+        Pink,
+        Green,
+        Blue,
+        Red
+    }
+
+    public enum KeyType
+    {
+        None,
+        Pink,
+        Green,
+        Blue,
+        Red
+    }
+
     public BaseType baseType;
     public EnemyType enemyType;
+    public DoorType doorType;
+    public KeyType keyType;
 }
